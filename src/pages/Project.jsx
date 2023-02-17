@@ -1,25 +1,30 @@
 
+import { useParams } from 'react-router-dom';
 import BtnGit from '../components/btnGit/BtnGit';
-import { projects } from '../helpers/ProjectsList'
-const Project = () => {
+import { projects } from '../helpers/ProjectsList';
+
+
+
+const Project = ({title, img, index}) => {
+    const {id} = useParams()
+    const project = projects[id]
+
     return ( 
         <main className="section">
         <div className="container">
             <div className="project-details">
 
-                <h1 className="title-1">Video service</h1>
-
-                <img src={projects.imgBig} alt={projects.title} className="project-details__cover"/>
+                <h1 className="title-1">{project.title}</h1>
+                <img src={project.imgBig} alt={project.title} className="project-details__cover"/>
 
                 <div className="project-details__desc">
-                    <p>Skills: React, Node.js, MongoDB</p>
+                    <p>Skills: {project.skills}</p>
                 </div>
-                {projects.map((project) => {
-                    return (
-                        <Project key={project.id} title={project.title} imgBig={project.imgBig} />
-                    )
-                })}
-            <BtnGit/>
+
+             {project.gitHubLink && (
+                <BtnGit link="https://github.com/KYTNICK" />
+             )}
+            
             </div>
         </div>
     </main>
